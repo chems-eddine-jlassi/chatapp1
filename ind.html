@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <style>
+    *{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    font:20px Helvetica,Arial;
+}
+form {
+    background: #000000;
+    padding: 3px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+form input{
+    border:0;
+    padding: 10px;
+    width: 89%;
+    margin-right: 2px;
+}
+form button{
+    width: 145px;
+    background: rgb(130, 244,255);
+    border: none;
+    border: none;
+    padding: 10px;
+}
+#messsages {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+#messsages li { padding:5px 10px ;}
+#messsages li:nth-child(odd) {background: #7c7b7b;}
+    </style>
+    <title>CHATBOX</title>
+</head>
+<body>
+    <Ul id="messages"></Ul>
+        <form action="">
+            <input id="m" autocomplete="off"><button>Send</button>
+        </form>
+        <script src="/socket.io/socket.io.js" ></script>
+        <script src=" https://code.jquery.com/jquery-3.4.1.min.js"></script>
+        <script>
+            $(function(){
+        var socket =io();
+        $('form').submit(function(){
+           socket.emit('chat message', $('#m').val());
+           $('#m').val('');
+           return false; 
+        });
+        socket.on('chat message',function(msg){
+            $('#messages').append($('<li>').text(msg));
+        });
+    });
+        
+        </script>
+</body>
+</html>
